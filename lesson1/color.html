@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>色环</title>
+</head>
+
+<body>
+    <canvas width="600" height="600" id="rgb"></canvas>
+    <canvas width="600" height="600" id="cym"></canvas>
+    <script>
+        window.onload = function () {
+            // 获取画笔
+            let rgb = getCTX("rgb")
+            let cym = getCTX("cym")
+            let radius = 256;
+            drawRing(rgb, radius, "rgb")
+            drawRing(cym, radius, "cym")
+        }
+        function convert(type, i) {
+            if (type == "rgb") return i
+            return 255 - i;
+        }
+        function getColor(type, i) {
+            let color;
+            if (i >= 0 && i < 120) {
+                //红绿
+                let r = 255 * Math.cos((i / 120 * 90) * (Math.PI / 180))
+                let g = 255 * Math.abs(Math.sin((i / 120 * 90) * (Math.PI / 180)))
+                color = "rgb(" + convert(type, r) + "," + convert(type, g) + "," + convert(type, 0) + ")"
+            } else if (i >= 120 && i < 240) {
+                //绿蓝
+                let g = 255 * Math.cos(((i + 360) / 120 * 90) * (Math.PI / 180));
+                let b = 255 * Math.abs(Math.sin(((i + 360) / 120 * 90) * (Math.PI / 180)))
+                color = "rgb(" + convert(type, 0) + "," + convert(type, g) + "," + convert(type, b) + ")"
+            } else {
+                //蓝红
+                let b = 255 * Math.cos(((i + 240) / 120 * 90) * (Math.PI / 180));
+                let r = 255 * Math.abs(Math.sin(((i + 240) / 120 * 90) * (Math.PI / 180)))
+                color = "rgb(" + convert(type, r) + "," + convert(type, 0) + "," + convert(type, b) + ")"
+            }
+            return color
+        }
+        function drawRing(ctx, radius, type) {
+            let rotate = -90;
+            for (let i = 0; i < 360; i++) {
+                let x = Math.cos((360 + rotate + i) * (Math.PI / 180))
+                let y = Math.sin((360 + rotate + i) * (Math.PI / 180))
+                let color = getColor(type, i);
+                for (let l = 128; l < radius; l++) {
+                    let p = { x: l * x, y: l * y, color: color }
+                    drawPoint(ctx, p)
+                }
+            }
+        }
+        function getCTX(id) {
+            let c = document.getElementById(id)
+            let ctx = c.getContext("2d")
+            var title = id;
+            //文字大小
+            ctx.font = "50px sans-serif"
+            //位置100,100
+            ctx.fillText(title, 100, 50)
+            return ctx
+        }
+        function drawPoint(ctx, point) {
+            // 设置绘制颜色
+            ctx.fillStyle = point.color
+            let center = { x: 300, y: 300 }
+            // 绘制
+            ctx.fillRect(center.x + point.x - 2, center.y + point.y - 2, 4, 4);
+        }
+    </script>
+</body>
+
+</html>
