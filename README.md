@@ -42,7 +42,7 @@
 1039	|	Course List for Student	|	25	|	13303	|	41298	|	0.32	|	
 1040	|	Longest Symmetric String	|	25	|	9076	|	27851	|	0.33	|	
 1041	|	Be Unique	|	20	|	10706	|	24887	|	0.43	|	
-1042	|	Shuffling Machine	|	20	|	13748	|	32865	|	0.42	|	
+1042	|	Shuffling Machine	|	20	|	13748	|	32865	|	0.42	|	√
 1043	|	Is It a Binary Search Tree	|	25	|	11898	|	33583	|	0.35	|	
 1044	|	Shopping in Mars	|	25	|	9980	|	32908	|	0.3	|	
 1045	|	Favorite Color Stripe	|	30	|	9356	|	25310	|	0.37	|	
